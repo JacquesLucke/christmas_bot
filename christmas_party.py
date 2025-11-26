@@ -1,17 +1,19 @@
-from hub import sound, light_matrix
+from hub import sound, light_matrix, port, button
 import motor
 import runloop
 import math
 import motor_pair
-from hub import port
 import distance_sensor
 import force_sensor
 import random
+import time
 
 drive_motors = motor_pair.pair(motor_pair.PAIR_1, port.B, port.A)
 
 top_motor = port.D
 top_motor_max = 75
+
+current_volume = 100
 
 distance_sensor_right = port.F
 distance_sensor_left = port.E
@@ -75,6 +77,7 @@ async def play_song(song):
                 attack=100,
                 decay=100,
                 waveform=sound.WAVEFORM_SINE,
+                volume=current_volume,
             )
 
     music_done = True
@@ -459,8 +462,6 @@ def display_image(image_data):
 
 def is_front_pressed():
     force = force_sensor.force(force_sensor_front)
-    if force > 0:
-        print(force)
     return force > 10
 
 
@@ -550,10 +551,15 @@ async def play_seen_motion(direction):
     await rotate_top_to_position(0, 100)
 
 
+last_volume_change_time = 0
+volume_show_duration = 3
+
+
 async def main():
     await rotate_top_to_position(0, 100)
     while True:
-        display_image(image_front)
+        if time.time() - last_volume_change_time > volume_show_duration:
+            display_image(image_front)
         if 50 < distance_sensor.distance(distance_sensor_right) < 500:
             await play_seen_motion("R")
         if 50 < distance_sensor.distance(distance_sensor_left) < 500:
@@ -561,4 +567,45 @@ async def main():
         await runloop.sleep_ms(1)
 
 
-runloop.run(main())
+def display_volume():
+    if current_volume == 0:
+        bars = 0
+    elif current_volume <= 20:
+        bars = 1
+    elif current_volume <= 50:
+        bars = 2
+    elif current_volume <= 70:
+        bars = 3
+    elif current_volume < 100:
+        bars = 4
+    else:
+        bars = 5
+    for x in range(5):
+        light_matrix.set_pixel(x, 4, 100 if x < bars else 10)
+
+
+def clamp_volume():
+    global current_volume
+    current_volume = max(0, min(current_volume, 100))
+
+
+async def volume_controls():
+    global last_volume_change_time
+    global current_volume
+    while True:
+        if button.pressed(button.LEFT):
+            await runloop.until(lambda: not button.pressed(button.LEFT))
+            current_volume -= 10
+            clamp_volume()
+            last_volume_change_time = time.time()
+            display_volume()
+        if button.pressed(button.RIGHT):
+            await runloop.until(lambda: not button.pressed(button.RIGHT))
+            current_volume += 10
+            clamp_volume()
+            last_volume_change_time = time.time()
+            display_volume()
+        await runloop.sleep_ms(10)
+
+
+runloop.run(main(), volume_controls())
