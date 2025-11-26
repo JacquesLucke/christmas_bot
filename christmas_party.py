@@ -27,7 +27,7 @@ def note_generator(base_frequency):
         f *= math.pow(2, 1 / 12)
 
 
-notes = note_generator(500)
+notes = note_generator(450)
 G3 = next(notes)
 G3_sharp = next(notes)
 A3 = next(notes)
@@ -151,6 +151,84 @@ async def play_silent_night():
         (A3, eigth),
         # Ruh!
         (G3, quarter_dot + quarter),
+    ]
+
+    await play_song(song)
+
+
+async def play_kling_gloeckchen_klingelingeling():
+    # 2/4th
+    bar = 1300
+    quarter = bar // 2
+    eigth = quarter // 2
+    half = quarter * 2
+    sixteenth = eigth // 2
+
+    song = [
+        # Kling, Glöckchen,
+        (C5, quarter),
+        (A4, eigth),
+        (A4_sharp, eigth),
+        # klingelingeling,
+        (C5, sixteenth),
+        (D5, sixteenth),
+        (C5, sixteenth),
+        (D5, sixteenth),
+        (C5, quarter),
+        # kling, Glöckchen
+        (A4_sharp, quarter),
+        (G4, eigth),
+        (C5, eigth),
+        # kling.
+        (A4, half),
+        # Lasst mich ein, ihr
+        (G4, eigth),
+        (G4, eigth),
+        (A4, eigth),
+        (F4, eigth),
+        # Kinder,
+        (A4, quarter),
+        (G4, quarter),
+        # ist so kalt der
+        (A4_sharp, eigth),
+        (A4_sharp, eigth),
+        (C5, eigth),
+        (G4, eigth),
+        # Winter,
+        (A4_sharp, quarter),
+        (A4, quarter),
+        # öffnet mir die
+        (G4, eigth),
+        (G4, eigth),
+        (A4, eigth),
+        (B4, eigth),
+        # Türen,
+        (C5, quarter),
+        (G4, quarter),
+        # lasst mich nicht er-
+        (A4, eigth),
+        (D5, eigth),
+        (C5, eigth),
+        (B4, eigth),
+        # -frieren.
+        (D5, quarter),
+        (C5, quarter),
+        # Kling, Glöckchen,
+        (C5, quarter),
+        (A4, eigth),
+        (A4_sharp, eigth),
+        # klingelingeling,
+        (C5, sixteenth),
+        (D5, sixteenth),
+        (C5, sixteenth),
+        (D5, sixteenth),
+        (C5, quarter),
+        # kling Glöckchen
+        (A4_sharp, quarter),
+        (G4, eigth),
+        (C5, eigth),
+        # kling.
+        (A4, half),
     ]
 
     await play_song(song)
@@ -494,6 +572,7 @@ song_functions = (
     play_silent_night,
     play_we_wish_you_a_merry_christmas,
     play_morgen_kinder_wirds_was_geben,
+    play_kling_gloeckchen_klingelingeling,
 )
 next_songs = []
 
