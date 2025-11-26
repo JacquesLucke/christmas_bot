@@ -65,14 +65,17 @@ async def play_song(song):
     for note, duration in song:
         if stop_music:
             break
-        await sound.beep(
-            note,
-            duration,
-            transition=100,
-            attack=100,
-            decay=100,
-            waveform=sound.WAVEFORM_SINE,
-        )
+        if note is ...:
+            await runloop.sleep_ms(duration)
+        else:
+            await sound.beep(
+                note,
+                duration,
+                transition=100,
+                attack=100,
+                decay=100,
+                waveform=sound.WAVEFORM_SINE,
+            )
 
     music_done = True
 
@@ -87,52 +90,64 @@ async def play_silent_night():
     sixteenth = eigth // 2
 
     song = [
-        [D4, eigth_dot],
-        [E4, sixteenth],
-        [D4, eigth],
-        [B3, quarter_dot],
-        [D4, eigth_dot],
-        [E4, sixteenth],
-        [D4, eigth],
-        [B3, quarter_dot],
-        [A4, quarter],
-        [A4, eigth],
-        [F4_sharp, quarter_dot],
-        [G4, quarter],
-        [G4, eigth],
-        [D4, quarter_dot],
-        [E4, quarter],
-        [E4, eigth],
-        [G4, eigth_dot],
-        [F4_sharp, sixteenth],
-        [E4, eigth],
-        [D4, eigth_dot],
-        [E4, sixteenth],
-        [D4, eigth],
-        [B3, quarter_dot],
-        [E4, quarter],
-        [E4, eigth],
-        [G4, eigth_dot],
-        [F4_sharp, sixteenth],
-        [E4, eigth],
-        [D4, eigth_dot],
-        [E4, sixteenth],
-        [D4, eigth],
-        [B3, quarter_dot],
-        [A4, quarter],
-        [A4, eigth],
-        [C5, eigth_dot],
-        [A4, sixteenth],
-        [F4_sharp, eigth],
-        [G4, quarter_dot],
-        [B4, quarter_dot],
-        [G4, eigth_dot],
-        [D4, sixteenth],
-        [B3, eigth],
-        [D4, eigth_dot],
-        [C4, sixteenth],
-        [A3, eigth],
-        [G3, quarter_dot + quarter],
+        # Stille Nacht!
+        (D4, eigth_dot),
+        (E4, sixteenth),
+        (D4, eigth),
+        (B3, quarter_dot),
+        # Heilige Nacht!
+        (D4, eigth_dot),
+        (E4, sixteenth),
+        (D4, eigth),
+        (B3, quarter_dot),
+        # Alles schläft,
+        (A4, quarter),
+        (A4, eigth),
+        (F4_sharp, quarter_dot),
+        # einsam wacht
+        (G4, quarter),
+        (G4, eigth),
+        (D4, quarter_dot),
+        # nur das traute hoch
+        (E4, quarter),
+        (E4, eigth),
+        (G4, eigth_dot),
+        (F4_sharp, sixteenth),
+        (E4, eigth),
+        # heilige Paar.
+        (D4, eigth_dot),
+        (E4, sixteenth),
+        (D4, eigth),
+        (B3, quarter_dot),
+        # Holder Knabe im
+        (E4, quarter),
+        (E4, eigth),
+        (G4, eigth_dot),
+        (F4_sharp, sixteenth),
+        (E4, eigth),
+        # lockigen Haar,
+        (D4, eigth_dot),
+        (E4, sixteenth),
+        (D4, eigth),
+        (B3, quarter_dot),
+        # schlaf in himmlischer
+        (A4, quarter),
+        (A4, eigth),
+        (C5, eigth_dot),
+        (A4, sixteenth),
+        (F4_sharp, eigth),
+        # Ruh,
+        (G4, quarter_dot),
+        (B4, quarter_dot),
+        # schlaf in himmlischer
+        (G4, eigth_dot),
+        (D4, sixteenth),
+        (B3, eigth),
+        (D4, eigth_dot),
+        (C4, sixteenth),
+        (A3, eigth),
+        # Ruh!
+        (G3, quarter_dot + quarter),
     ]
 
     await play_song(song)
@@ -303,6 +318,84 @@ async def play_jingle_bells():
     await play_song(song)
 
 
+async def play_morgen_kinder_wirds_was_geben():
+    # 4/4th
+    bar = 1600
+    quarter = bar // 4
+    half = quarter * 2
+    eigth = quarter // 2
+    full = bar
+
+    song = [
+        # Morgen, Kinder,
+        (F4, quarter),
+        (C4, quarter),
+        (D4, quarter),
+        (C4, quarter),
+        # wird's was geben,
+        (D4, eigth),
+        (F4, eigth),
+        (E4, eigth),
+        (G4, eigth),
+        (F4, quarter),
+        (C4, quarter),
+        # morgen werden
+        (A4, quarter),
+        (A4, eigth),
+        (A4_sharp, eigth),
+        (C5, quarter),
+        (A4, quarter),
+        # wir uns freu'n!
+        (A4_sharp, quarter),
+        (A4, quarter),
+        (G4, half),
+        # Welch ein Jubel,
+        (F4, quarter),
+        (C4, quarter),
+        (D4, quarter),
+        (C4, quarter),
+        # welch ein Leben
+        (D4, eigth),
+        (F4, eigth),
+        (E4, eigth),
+        (G4, eigth),
+        (F4, quarter),
+        (C4, quarter),
+        # wird in unser'm
+        (A4, quarter),
+        (A4, eigth),
+        (A4_sharp, eigth),
+        (C5, quarter),
+        (A4, quarter),
+        # Hause sein!
+        (A4_sharp, quarter),
+        (A4, quarter),
+        (G4, half),
+        # Einmal werden
+        (A4_sharp, quarter),
+        (A4_sharp, quarter),
+        (D5, quarter),
+        (D5, quarter),
+        # wir noch wach,
+        (G4, quarter),
+        (G4, quarter),
+        (C5, half),
+        # heissa, dann ist
+        (F4, quarter),
+        (F4, quarter),
+        (A4_sharp, quarter),
+        (A4_sharp, quarter),
+        # Weihnachtstag!
+        (A4, eigth),
+        (G4, eigth),
+        (F4, eigth),
+        (E4, eigth),
+        (F4, half),
+    ]
+
+    await play_song(song)
+
+
 async def move_straight(distance_cm):
     degrees = distance_cm / 17.3 * 360
     await motor_pair.move_for_degrees(motor_pair.PAIR_1, int(degrees), 0)
@@ -331,46 +424,37 @@ async def rotate_top_to_position(
     )
 
 
-image_front = """
-    xx xx
-    xx xx
+image_front = (
+    (100, 100, 0, 100, 100),
+    (100, 100, 0, 100, 100),
+    (0, 0, 0, 0, 0),
+    (100, 0, 0, 0, 100),
+    (0, 100, 100, 100, 0),
+)
 
-    x   x
-     xxx
-"""
+image_right = (
+    (100, 20, 0, 100, 20),
+    (100, 20, 0, 100, 20),
+    (0, 0, 0, 0, 0),
+    (100, 0, 0, 0, 100),
+    (0, 100, 100, 100, 0),
+)
 
-image_right = """
-    x  x 
-    x  x 
-
-    x   x
-     xxx
-"""
-
-image_left = """
-     x  x
-     x  x
-
-    x   x
-     xxx
-"""
-
-
-def image_str_to_light_array(image_str):
-    lines = image_str.splitlines()[1:]
-    array = [100] * 25
-
-    for x in range(5):
-        for y in range(5):
-            line = lines[y][4:]
-            c = " " if len(line) <= x else line[x]
-            array[y * 5 + x] = 100 if c == "x" else 0
-
-    return array
+image_left = (
+    (20, 100, 0, 20, 100),
+    (20, 100, 0, 20, 100),
+    (0, 0, 0, 0, 0),
+    (100, 0, 0, 0, 100),
+    (0, 100, 100, 100, 0),
+)
 
 
-def display_image_str(image_str):
-    light_matrix.show(image_str_to_light_array(image_str))
+def image_to_light_array(image_data):
+    return [v for row in image_data for v in row]
+
+
+def display_image(image_data):
+    light_matrix.show(image_to_light_array(image_data))
 
 
 def is_front_pressed():
@@ -395,7 +479,7 @@ async def play_music_screen():
             pixels.append(int(brightness))
         light_matrix.show(pixels)
         await runloop.sleep_ms(300)
-    display_image_str(image_front)
+    display_image(image_front)
 
 
 def shuffle_list(l):
@@ -408,6 +492,7 @@ song_functions = (
     play_jingle_bells,
     play_silent_night,
     play_we_wish_you_a_merry_christmas,
+    play_morgen_kinder_wirds_was_geben,
 )
 next_songs = []
 
@@ -434,12 +519,12 @@ async def move_head_while_singing():
 
 async def set_front_face_after_duration(duration):
     await runloop.sleep_ms(duration)
-    display_image_str(image_front)
+    display_image(image_front)
 
 
 async def play_seen_motion(direction):
     is_right = direction == "R"
-    display_image_str(image_right if is_right else image_left)
+    display_image(image_right if is_right else image_left)
     await runloop.sleep_ms(200)
     runloop.run(
         rotate_top_to_position(1 if is_right else -1, 150),
@@ -452,7 +537,7 @@ async def play_seen_motion(direction):
     motor_pair.move(motor_pair.PAIR_1, 0, velocity=300)
     await runloop.until(is_front_pressed)
     await motor_pair.move_for_degrees(
-        motor_pair.PAIR_1, -360, 0, velocity=2000, acceleration=4000
+        motor_pair.PAIR_1, -500, 0, velocity=1500, acceleration=4000
     )
 
     reset_music_playback()
@@ -468,7 +553,7 @@ async def play_seen_motion(direction):
 async def main():
     await rotate_top_to_position(0, 100)
     while True:
-        display_image_str(image_front)
+        display_image(image_front)
         if 50 < distance_sensor.distance(distance_sensor_right) < 500:
             await play_seen_motion("R")
         if 50 < distance_sensor.distance(distance_sensor_left) < 500:
